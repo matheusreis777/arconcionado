@@ -6,12 +6,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-clients',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  template: `
-    <div style="padding:2rem;background:#0f1117;min-height:100vh;color:#fff;">
-      <h2>👥 Clientes</h2>
-      <p style="color:rgba(255,255,255,0.5)">Lista de clientes cadastrados.</p>
-      <a routerLink="/dashboard" style="color:#00c9a7">← Voltar ao Dashboard</a>
-    </div>
-  `,
+  templateUrl: './clients.component.html',
+  styleUrl: './clients.component.scss'
 })
 export class ClientsComponent {}

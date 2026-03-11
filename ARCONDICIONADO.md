@@ -231,6 +231,20 @@ Estrutura recomendada:
 
 ---
 
+# Padrões de Desenvolvimento (Frontend)
+
+## Estrutura de Componentes
+Todos os componentes devem seguir o padrão de separação de arquivos para manter a organização e escalabilidade:
+
+1.  **Criação**: Sempre separar HTML, SCSS e TypeScript.
+2.  **Arquivos**:
+    -   `nome.component.ts`: Lógica e metadados.
+    -   `nome.component.html`: Estrutura do template.
+    -   `nome.component.scss`: Estilos específicos do componente.
+3.  **Configuração**: Usar `templateUrl` e `styleUrl` no decorator `@Component`.
+
+---
+
 # Core Layer
 
 Responsável por:

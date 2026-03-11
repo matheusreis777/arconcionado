@@ -1,0 +1,54 @@
+<div class="dashboard">
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <span>❄️</span>
+      <span>Under Control</span>
+    </div>
+    <ul class="nav-list">
+      <li><a routerLink="/dashboard">🏠 Dashboard</a></li>
+      <li><a routerLink="/service-orders">📋 Ordens de Serviço</a></li>
+      <li><a routerLink="/equipments">🌡️ Equipamentos</a></li>
+      <li><a routerLink="/clients">👥 Clientes</a></li>
+      <li><a routerLink="/profile">👤 Perfil</a></li>
+    </ul>
+    <button class="logout-btn" (click)="logout()">🚪 Sair</button>
+  </nav>
+
+  <main class="main-content">
+    <header class="topbar">
+      <h2>Dashboard</h2>
+      <span class="user-email">{{ auth.currentUser()?.email }}</span>
+    </header>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <div class="card-info">
+          <span class="card-label">Ordens de Serviço</span>
+          <a routerLink="/service-orders" class="card-link">Ver todas →</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌡️</div>
+        <div class="card-info">
+          <span class="card-label">Equipamentos</span>
+          <a routerLink="/equipments" class="card-link">Gerenciar →</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">👥</div>
+        <div class="card-info">
+          <span class="card-label">Clientes</span>
+          <a routerLink="/clients" class="card-link">Ver todos →</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">✅</div>
+        <div class="card-info">
+          <span class="card-label">Sistema Ativo</span>
+          <span class="card-link" style="color:#00c9a7">Conectado ao Supabase</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

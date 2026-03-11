@@ -1,0 +1,114 @@
+<div class="premium-auth-container">
+  <!-- Side Visual: Vibrant, Premium & Animated -->
+  <div class="visual-panel">
+    <div class="bg-mesh-animation">
+      <div class="float-circle c1"></div>
+      <div class="float-circle c2"></div>
+      <div class="float-circle c3"></div>
+    </div>
+    
+    <div class="visual-content">
+      <header class="visual-header">
+        <div class="brand-identity">
+          <span>UNDER CONTROL/AR-CONDICIONADO</span>
+        </div>
+        <h1>Gestão inteligente para seus serviços</h1>
+        <p>Gerencie ordens de serviço, técnicos, clientes e manutenção de forma simples e eficiente.</p>
+      </header>
+
+      <div class="enterprise-features">
+        <div class="feat-box">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m13 2-2 10h3L11 22"/>
+          </svg>
+          <div class="feat-info">
+            <strong>Alta Produtividade</strong>
+            <span>Processos simplificados de ponta a ponta.</span>
+          </div>
+        </div>
+        <div class="feat-box">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20V10"/>
+            <path d="M18 20V4"/>
+            <path d="M6 20v-4"/>
+          </svg>
+          <div class="feat-info">
+            <strong>Dashboards Avançados</strong>
+            <span>Dados em tempo real para controle total.</span>
+          </div>
+        </div>
+        <div class="feat-box">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="12" x="2" y="10" rx="2" ry="2"/>
+            <path d="M17 10V7a5 5 0 0 0-10 0v3"/>
+          </svg>
+          <div class="feat-info">
+            <strong>Segurança de Dados</strong>
+            <span>Backup e criptografia em nível enterprise.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <footer class="visual-footer">
+      <span>&copy; 2026 Under Control</span>
+    </footer>
+  </div>
+
+  <!-- Side Form: Sharp and Professional -->
+  <div class="form-panel">
+    <div class="form-wrapper">
+      <header class="form-header">
+        <h2>{{ isLoginMode() ? 'Sistema de Login' : 'Nova Conta' }}</h2>
+        <p>{{ isLoginMode() ? 'Insira suas credenciais corporativas.' : 'Preencha os campos para solicitar acesso.' }}</p>
+      </header>
+
+      <form (ngSubmit)="onSubmit()" #authForm="ngForm">
+        <div class="input-field">
+          <label>Identificação de Acesso</label>
+          <input
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            placeholder="nome@empresa.com"
+            required
+            [disabled]="loading()"
+          />
+        </div>
+
+        <div class="input-field">
+          <label>Senha</label>
+          <input
+            type="password"
+            [(ngModel)]="password"
+            name="password"
+            placeholder="Sua senha"
+            required
+            [disabled]="loading()"
+            minlength="6"
+          />
+        </div>
+
+        @if (error()) {
+          <div class="error-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span>{{ error() }}</span>
+          </div>
+        }
+
+        <button type="submit" class="prime-submit" [disabled]="loading() || !authForm.valid">
+          {{ loading() ? 'Validando...' : (isLoginMode() ? 'Acessar Dashboard' : 'Finalizar Solicitação') }}
+        </button>
+      </form>
+
+      <div class="form-footer">
+        <span>{{ isLoginMode() ? 'Ainda não é cadastrado?' : 'Já possui conta?' }}</span>
+        <button class="switch-btn" (click)="toggleMode()">
+          {{ isLoginMode() ? 'Criar perfil' : 'Fazer login' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
