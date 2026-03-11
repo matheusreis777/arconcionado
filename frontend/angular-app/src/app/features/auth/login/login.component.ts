@@ -12,6 +12,7 @@ import { AuthService } from '../../../core/services/auth.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  name = '';
   email = '';
   password = '';
   loading = signal(false);
@@ -22,6 +23,7 @@ export class LoginComponent {
 
   toggleMode() {
     this.isLoginMode.update(v => !v);
+    this.name = '';
     this.error.set('');
   }
 
@@ -32,7 +34,7 @@ export class LoginComponent {
       if (this.isLoginMode()) {
         await this.authService.login(this.email, this.password);
       } else {
-        await this.authService.signUp(this.email, this.password);
+        await this.authService.signUp(this.email, this.password, this.name);
       }
     } catch (err: any) {
       this.error.set(err?.message || 'Erro ao processar solicitação. Verifique os dados.');

@@ -47,10 +47,15 @@ export class AuthService {
     }
   }
 
-  async signUp(email: string, password: string): Promise<void> {
+  async signUp(email: string, password: string, name?: string): Promise<void> {
     const { data, error } = await this.supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          nome: name
+        }
+      }
     });
 
     if (error) throw error;

@@ -64,8 +64,22 @@
       </header>
 
       <form (ngSubmit)="onSubmit()" #authForm="ngForm">
+        @if (!isLoginMode()) {
+          <div class="input-field">
+            <label>Nome Completo</label>
+            <input
+              type="text"
+              [(ngModel)]="name"
+              name="name"
+              placeholder="Seu nome completo"
+              required
+              [disabled]="loading()"
+            />
+          </div>
+        }
+
         <div class="input-field">
-          <label>Identificação de Acesso</label>
+          <label>E-mail</label>
           <input
             type="email"
             [(ngModel)]="email"
@@ -99,7 +113,7 @@
         }
 
         <button type="submit" class="prime-submit" [disabled]="loading() || !authForm.valid">
-          {{ loading() ? 'Validando...' : (isLoginMode() ? 'Acessar Dashboard' : 'Finalizar Solicitação') }}
+          {{ loading() ? 'Validando...' : (isLoginMode() ? 'Acessar Dashboard' : 'Criar Conta') }}
         </button>
       </form>
 
