@@ -1,0 +1,47 @@
+<div class="developer-container">
+  <nav class="dev-sidebar">
+    <div class="dev-logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="16 18 22 12 16 6"/>
+        <polyline points="8 6 2 12 8 18"/>
+      </svg>
+      <span>DEV AREA</span>
+    </div>
+    <ul class="dev-nav">
+      <li><a href="#" class="active">🚀 System Status</a></li>
+      <li><a href="#">🛠️ Debug Tools</a></li>
+      <li><a href="#">📦 Database Logs</a></li>
+    </ul>
+  </nav>
+
+  <main class="dev-main">
+    <header class="dev-header">
+      <div class="title-group">
+        <h1>Painel do Desenvolvedor</h1>
+        <p>Acesso exclusivo para manutenção e monitoramento de sistemas.</p>
+      </div>
+      <div class="user-badge">
+        <span>{{ auth.currentUser()?.email }}</span>
+        <div class="role-tag">Developer</div>
+        <button class="logout-btn-minimal" (click)="logout()">Sair do Sistema</button>
+      </div>
+    </header>
+
+    <div class="dev-grid">
+      <div class="dev-card">
+        <h3>API Status</h3>
+        <div class="status-indicator online">Online</div>
+        <p>Supabase connection active.</p>
+      </div>
+      <div class="dev-card">
+        <h3>Environment</h3>
+        <code>production: false</code>
+        <p>Running in development mode.</p>
+      </div>
+      <div class="dev-card">
+        <h3>Internal Settings</h3>
+        <button class="dev-btn">Clear local cache</button>
+      </div>
+    </div>
+  </main>
+</div>

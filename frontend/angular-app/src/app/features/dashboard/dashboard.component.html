@@ -1,54 +1,70 @@
-<div class="dashboard">
-  <nav class="sidebar">
-    <div class="sidebar-logo">
-      <span>❄️</span>
-      <span>Under Control</span>
+<div class="dashboard-content">
+
+  <!-- Welcome Banner -->
+  <div class="welcome-banner">
+    <div class="welcome-text">
+      <h1>Olá, {{ userName.split(' ')[0] }}! 👋</h1>
+      <p>Bem-vindo ao painel de controle. Escolha uma área para começar.</p>
     </div>
-    <ul class="nav-list">
-      <li><a routerLink="/dashboard">🏠 Dashboard</a></li>
-      <li><a routerLink="/service-orders">📋 Ordens de Serviço</a></li>
-      <li><a routerLink="/equipments">🌡️ Equipamentos</a></li>
-      <li><a routerLink="/clients">👥 Clientes</a></li>
-      <li><a routerLink="/profile">👤 Perfil</a></li>
-    </ul>
-    <button class="logout-btn" (click)="logout()">🚪 Sair</button>
-  </nav>
+    @if (company?.nome) {
+      <div class="company-info-chip">
+        <span class="label">Empresa</span>
+        <span class="value">{{ company.nome }}</span>
+      </div>
+    }
+  </div>
 
-  <main class="main-content">
-    <header class="topbar">
-      <h2>Dashboard</h2>
-      <span class="user-email">{{ auth.currentUser()?.email }}</span>
-    </header>
-
+  <!-- Quick Access Cards -->
+  <section class="section" aria-labelledby="quick-access-title">
+    <h2 id="quick-access-title" class="section-title">Acesso Rápido</h2>
     <div class="cards-grid">
-      <div class="card">
-        <div class="card-icon">📋</div>
-        <div class="card-info">
-          <span class="card-label">Ordens de Serviço</span>
-          <a routerLink="/service-orders" class="card-link">Ver todas →</a>
+
+      <a routerLink="/service-orders" class="nav-card">
+        <div class="nav-card-icon blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-icon">🌡️</div>
-        <div class="card-info">
-          <span class="card-label">Equipamentos</span>
-          <a routerLink="/equipments" class="card-link">Gerenciar →</a>
+        <div class="nav-card-body">
+          <span class="nav-card-title">Ordens de Serviço</span>
+          <span class="nav-card-desc">Gerencie e acompanhe as OS</span>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-icon">👥</div>
-        <div class="card-info">
-          <span class="card-label">Clientes</span>
-          <a routerLink="/clients" class="card-link">Ver todos →</a>
+        <svg class="nav-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+
+      <a routerLink="/equipments" class="nav-card">
+        <div class="nav-card-icon sky">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-icon">✅</div>
-        <div class="card-info">
-          <span class="card-label">Sistema Ativo</span>
-          <span class="card-link" style="color:#00c9a7">Conectado ao Supabase</span>
+        <div class="nav-card-body">
+          <span class="nav-card-title">Equipamentos</span>
+          <span class="nav-card-desc">Controle de aparelhos e instalações</span>
         </div>
-      </div>
+        <svg class="nav-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+
+      <a routerLink="/clients" class="nav-card">
+        <div class="nav-card-icon indigo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="nav-card-body">
+          <span class="nav-card-title">Clientes</span>
+          <span class="nav-card-desc">Cadastro e histórico de clientes</span>
+        </div>
+        <svg class="nav-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+
+      @if (isAdmin) {
+        <a routerLink="/invite-collaborator" class="nav-card highlight">
+          <div class="nav-card-icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+          </div>
+          <div class="nav-card-body">
+            <span class="nav-card-title">Convidar Colaborador</span>
+            <span class="nav-card-desc">Adicione técnicos à sua equipe</span>
+          </div>
+          <svg class="nav-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      }
+
     </div>
-  </main>
+  </section>
 </div>

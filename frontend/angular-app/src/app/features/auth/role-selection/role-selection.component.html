@@ -1,0 +1,136 @@
+<div class="onboarding-container">
+
+  <!-- Visual Panel (esquerda) -->
+  <div class="visual-panel">
+    <div class="bg-mesh-animation">
+      <div class="float-circle c1"></div>
+      <div class="float-circle c2"></div>
+      <div class="float-circle c3"></div>
+    </div>
+
+    <div class="visual-content">
+      <header class="visual-header">
+        <div class="brand-identity">
+          <span>UNDER CONTROL</span>
+        </div>
+        <h1>Defina seu perfil de acesso</h1>
+        <p>Cada perfil possui permissões e funcionalidades específicas para o seu papel na equipe.</p>
+      </header>
+
+      <div class="profile-previews">
+        <div class="preview-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div>
+            <strong>Administrador</strong>
+            <span>Gestão completa do sistema</span>
+          </div>
+        </div>
+        <div class="preview-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <div>
+            <strong>Técnico / Funcionário</strong>
+            <span>Execução de ordens de serviço</span>
+          </div>
+        </div>
+        <div class="preview-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <div>
+            <strong>Cliente Final</strong>
+            <span>Acompanhamento de manutenções</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="visual-footer">
+      <span>&copy; 2026 Under Control</span>
+    </footer>
+  </div>
+
+  <!-- Form Panel (direita) -->
+  <div class="form-panel">
+    <div class="form-wrapper">
+
+      <!-- Progress Bar -->
+      <div class="progress-bar" aria-label="Etapas de configuração">
+        <div class="progress-step completed">
+          <div class="step-circle">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span>Conta</span>
+        </div>
+        <div class="progress-line completed"></div>
+        <div class="progress-step active">
+          <div class="step-circle"><span>2</span></div>
+          <span>Perfil</span>
+        </div>
+        <div class="progress-line"></div>
+        <div class="progress-step">
+          <div class="step-circle"><span>3</span></div>
+          <span>Empresa</span>
+        </div>
+      </div>
+
+      <header class="form-header">
+        <h2>Selecione seu perfil</h2>
+        <p>Escolha como você vai utilizar o sistema.</p>
+      </header>
+
+      <div class="roles-grid">
+        @for (role of roles; track role.name) {
+          <button
+            class="role-card"
+            id="btn-role-{{ role.name }}"
+            (click)="selectRole(role.name)"
+            [disabled]="loading"
+          >
+            <div class="card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                @if (role.name === 'admin') {
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                } @else if (role.name === 'funcionario') {
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                } @else {
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                }
+              </svg>
+            </div>
+            <div class="card-info">
+              <h3>{{ role.title }}</h3>
+              <p>{{ role.description }}</p>
+            </div>
+            <div class="card-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+        }
+      </div>
+
+      @if (error) {
+        <div class="error-box" role="alert">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>{{ error }}</span>
+        </div>
+      }
+
+      @if (noInviteMessage()) {
+        <div class="info-box" role="alert">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.11 12 19.79 19.79 0 0 1 1.09 3.18 2 2 0 0 1 3.07 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+          <div>
+            <strong>Convite necessário</strong>
+            <p>{{ noInviteMessage() }}</p>
+          </div>
+        </div>
+      }
+
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  @if (loading) {
+    <div class="loading-overlay">
+      <div class="spinner"></div>
+      <p>Configurando seu ambiente...</p>
+    </div>
+  }
+</div>

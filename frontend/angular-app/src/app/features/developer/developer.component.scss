@@ -1,0 +1,175 @@
+.developer-container {
+  display: flex;
+  min-height: 100vh;
+  background: #0a0a0c;
+  color: #e2e8f0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.dev-sidebar {
+  width: 260px;
+  background: #111114;
+  border-right: 1px solid #1f2937;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
+}
+
+.dev-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 1.5rem 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #6366f1;
+}
+
+.dev-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+
+.dev-nav li a {
+  display: block;
+  padding: 0.85rem 1.5rem;
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.dev-nav li a:hover, .dev-nav li a.active {
+  color: #fff;
+  background: rgba(99, 102, 241, 0.1);
+  border-left: 3px solid #6366f1;
+}
+
+.back-link {
+  margin: 1.5rem;
+  padding: 0.75rem;
+  background: #1f2937;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.back-link:hover {
+  background: #374151;
+}
+
+.dev-main {
+  flex: 1;
+  padding: 3rem;
+}
+
+.dev-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 3rem;
+}
+
+.dev-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.dev-header p {
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.user-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+}
+
+.role-tag {
+  background: #4f46e5;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 99px;
+}
+
+.dev-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.dev-card {
+  background: #111114;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.dev-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.status-indicator {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+  margin-bottom: 1rem;
+}
+
+.dev-card code {
+  display: block;
+  background: #000;
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  color: #6366f1;
+}
+
+.dev-btn {
+  width: 100%;
+  padding: 0.6rem;
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.logout-btn-minimal {
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background: transparent;
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.logout-btn-minimal:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: #ef4444;
+}

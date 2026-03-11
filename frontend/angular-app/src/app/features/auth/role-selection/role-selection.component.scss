@@ -1,0 +1,399 @@
+:host {
+  display: block;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  --prime-blue: #0061ff;
+  --deep-blue: #0040aa;
+  --navy: #0f172a;
+  --slate: #475569;
+}
+
+// ─── Layout ───────────────────────────────────────────────────────────────────
+.onboarding-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background: #fff;
+  position: relative;
+}
+
+// ─── Visual Panel (esquerda) ──────────────────────────────────────────────────
+.visual-panel {
+  flex: 1;
+  position: relative;
+  background: linear-gradient(-45deg, #0f172a, #1e3a8a, #1d4ed8, #0369a1);
+  background-size: 400% 400%;
+  animation: meshGradient 15s ease infinite;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4rem;
+  color: #fff;
+  overflow: hidden;
+}
+
+@keyframes meshGradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.bg-mesh-animation {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.float-circle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: floatMotion 20s infinite ease-in-out;
+}
+.c1 { width: 420px; height: 420px; top: -100px; left: -100px; animation-duration: 25s; }
+.c2 { width: 320px; height: 320px; bottom: -50px; right: -50px; animation-duration: 30s; animation-delay: -5s; }
+.c3 { width: 260px; height: 260px; top: 40%; left: 40%; animation-duration: 22s; animation-delay: -10s; }
+
+@keyframes floatMotion {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(50px, -70px) scale(1.1); }
+  66%       { transform: translate(-30px, 30px) scale(0.9); }
+}
+
+.visual-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.brand-identity {
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+  font-size: 0.8rem;
+}
+
+.visual-header h1 {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.5px;
+}
+
+.visual-header p {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.8;
+  font-weight: 300;
+  margin-bottom: 3.5rem;
+}
+
+.profile-previews {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.preview-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.1rem 1.25rem;
+  border-radius: 14px;
+  backdrop-filter: blur(6px);
+
+  svg {
+    color: rgba(255,255,255,0.85);
+    flex-shrink: 0;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  strong {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  span {
+    font-size: 0.82rem;
+    opacity: 0.65;
+    font-weight: 300;
+  }
+}
+
+.visual-footer {
+  position: relative;
+  z-index: 1;
+  font-size: 0.82rem;
+  opacity: 0.5;
+  font-weight: 300;
+}
+
+// ─── Form Panel (direita) ─────────────────────────────────────────────────────
+.form-panel {
+  flex: 1.1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  background: #fdfdfd;
+  overflow-y: auto;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 460px;
+}
+
+// ─── Progress Bar ─────────────────────────────────────────────────────────────
+.progress-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+
+  .step-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    border: 2px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #94a3b8;
+    transition: all 0.3s ease;
+  }
+
+  span {
+    font-size: 0.68rem;
+    color: #94a3b8;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  &.completed {
+    .step-circle {
+      background: #0061ff;
+      border-color: #0061ff;
+      color: #fff;
+
+      svg { color: #fff; }
+    }
+    span { color: #0061ff; }
+  }
+
+  &.active {
+    .step-circle {
+      background: #fff;
+      border-color: #0061ff;
+      color: #0061ff;
+      box-shadow: 0 0 0 4px rgba(0, 97, 255, 0.1);
+    }
+    span { color: #0f172a; font-weight: 600; }
+  }
+}
+
+.progress-line {
+  flex: 1;
+  height: 2px;
+  background: #e2e8f0;
+  margin: 0 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 2px;
+  transition: background 0.3s;
+
+  &.completed {
+    background: #0061ff;
+  }
+}
+
+// ─── Form Header ──────────────────────────────────────────────────────────────
+.form-header {
+  margin-bottom: 2rem;
+
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.5px;
+  }
+
+  p {
+    color: var(--slate);
+    font-size: 0.95rem;
+  }
+}
+
+// ─── Role Cards ───────────────────────────────────────────────────────────────
+.roles-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.role-card {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  width: 100%;
+  background: #fff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 1.15rem 1.25rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  font-family: inherit;
+
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #eff6ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0061ff;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+
+  .card-info {
+    flex: 1;
+
+    h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 0.2rem;
+    }
+
+    p {
+      font-size: 0.82rem;
+      color: #64748b;
+      line-height: 1.4;
+    }
+  }
+
+  .card-arrow {
+    color: #cbd5e1;
+    flex-shrink: 0;
+    transition: color 0.2s, transform 0.2s;
+  }
+
+  &:hover:not(:disabled) {
+    border-color: #0061ff;
+    box-shadow: 0 4px 12px rgba(0, 97, 255, 0.1);
+    transform: translateX(3px);
+
+    .card-icon {
+      background: #0061ff;
+      color: #fff;
+    }
+
+    .card-arrow {
+      color: #0061ff;
+      transform: translateX(3px);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+// ─── Error Box ────────────────────────────────────────────────────────────────
+.error-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding: 0.85rem 1rem;
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  border-radius: 10px;
+  color: #e11d48;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.info-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding: 0.9rem 1rem;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+  color: #1d4ed8;
+  font-size: 0.875rem;
+
+  svg { flex-shrink: 0; margin-top: 2px; }
+
+  strong { display: block; font-weight: 600; margin-bottom: 0.2rem; }
+  p { margin: 0; opacity: 0.85; font-size: 0.82rem; line-height: 1.5; }
+}
+
+// ─── Loading Overlay ─────────────────────────────────────────────────────────
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.88);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  backdrop-filter: blur(6px);
+
+  p {
+    margin-top: 1rem;
+    color: #475569;
+    font-size: 0.95rem;
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e2e8f0;
+  border-top-color: #0061ff;
+  border-radius: 50%;
+  animation: rotation 0.8s linear infinite;
+}
+
+@keyframes rotation {
+  to { transform: rotate(360deg); }
+}
+
+// ─── Responsive ───────────────────────────────────────────────────────────────
+@media (max-width: 1024px) {
+  .visual-panel { display: none; }
+  .form-panel { padding: 2rem 1.5rem; }
+}

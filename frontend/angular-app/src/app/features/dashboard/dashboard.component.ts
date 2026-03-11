@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
@@ -8,12 +8,22 @@ import { AuthService } from '../../core/services/auth.service';
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrl: './dashboard.component.scss',
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   auth = inject(AuthService);
 
-  logout() {
-    this.auth.logout();
+  get company()   { return this.auth.userCompany(); }
+  get isAdmin()   { return this.auth.hasRole('admin'); }
+
+  get userName(): string {
+    const meta = (this.auth.currentUser()?.user_metadata as any);
+    return meta?.nome ?? meta?.name ?? this.auth.currentUser()?.email ?? 'Usuário';
+  }
+
+  async ngOnInit() {
+    if (!this.company) {
+      await this.auth.fetchUserCompany();
+    }
   }
 }

@@ -113,7 +113,7 @@
         }
 
         <button type="submit" class="prime-submit" [disabled]="loading() || !authForm.valid">
-          {{ loading() ? 'Validando...' : (isLoginMode() ? 'Acessar Dashboard' : 'Criar Conta') }}
+          {{ loading() ? 'Validando...' : (isLoginMode() ? 'Login' : 'Criar Conta') }}
         </button>
       </form>
 
