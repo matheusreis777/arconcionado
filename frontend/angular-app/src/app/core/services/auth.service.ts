@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { createClient, SupabaseClient, User } from '@supabase/supabase-js';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Observable, from } from 'rxjs';
 
 @Injectable({
@@ -44,6 +44,24 @@ export class AuthService {
       localStorage.setItem('sb-token', data.session.access_token);
       this.currentUser.set(data.user);
       this.router.navigate(['/dashboard']);
+    }
+  }
+
+  async signUp(email: string, password: string): Promise<void> {
+    const { data, error } = await this.supabase.auth.signUp({
+      email,
+      password,
+    });
+
+    if (error) throw error;
+
+    if (data.session) {
+      localStorage.setItem('sb-token', data.session.access_token);
+      this.currentUser.set(data.user);
+      this.router.navigate(['/dashboard']);
+    } else if (data.user) {
+      // Handle cases where email confirmation is required
+      alert('Cadastro realizado! Verifique seu e-mail para confirmar a conta.');
     }
   }
 

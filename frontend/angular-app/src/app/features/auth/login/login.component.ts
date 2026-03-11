@@ -9,101 +9,182 @@ import { AuthService } from '../../../core/services/auth.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="login-container">
-      <div class="login-card">
-        <div class="logo">
-          <span class="logo-icon">❄️</span>
-          <h1>Under Control</h1>
-          <p>Gestão de Ar-Condicionado</p>
+    <div class="auth-wrapper">
+      <div class="description-side">
+        <div class="description-content">
+          <div class="logo">
+            <span class="logo-icon">❄️</span>
+            <h1>Under Control</h1>
+          </div>
+          <h2>Gestão Inteligente de Ar-Condicionado</h2>
+          <p>Potencialize sua produtividade com nosso sistema completo de controle de manutenções. Gerencie ordens de serviço, equipamentos e clientes em um só lugar.</p>
+          <ul class="features">
+            <li>✅ Controle de Ordens de Serviço</li>
+            <li>✅ Histórico de Manutenções</li>
+            <li>✅ Gestão de Equipamentos</li>
+            <li>✅ Cadastro de Clientes</li>
+          </ul>
         </div>
+      </div>
 
-        <form (ngSubmit)="onLogin()" #loginForm="ngForm">
-          <div class="field">
-            <label for="email">E-mail</label>
-            <input
-              id="email"
-              type="email"
-              [(ngModel)]="email"
-              name="email"
-              placeholder="seu@email.com"
-              required
-              [disabled]="loading()"
-            />
+      <div class="form-side">
+        <div class="form-container">
+          <div class="form-header">
+            <h3>{{ isLoginMode() ? 'Bem-vindo de volta' : 'Crie sua conta' }}</h3>
+            <p>{{ isLoginMode() ? 'Acesse sua conta para gerenciar seus serviços' : 'Comece agora a organizar suas manutenções' }}</p>
           </div>
 
-          <div class="field">
-            <label for="password">Senha</label>
-            <input
-              id="password"
-              type="password"
-              [(ngModel)]="password"
-              name="password"
-              placeholder="••••••••"
-              required
-              [disabled]="loading()"
-            />
-          </div>
+          <form (ngSubmit)="onSubmit()" #authForm="ngForm">
+            <div class="field">
+              <label for="email">E-mail</label>
+              <input
+                id="email"
+                type="email"
+                [(ngModel)]="email"
+                name="email"
+                placeholder="seu@email.com"
+                required
+                [disabled]="loading()"
+              />
+            </div>
 
-          @if (error()) {
-            <div class="error-msg">{{ error() }}</div>
-          }
+            <div class="field">
+              <label for="password">Senha</label>
+              <input
+                id="password"
+                type="password"
+                [(ngModel)]="password"
+                name="password"
+                placeholder="••••••••"
+                required
+                [disabled]="loading()"
+                minlength="6"
+              />
+            </div>
 
-          <button type="submit" [disabled]="loading() || !loginForm.valid">
-            @if (loading()) {
-              <span>Entrando...</span>
-            } @else {
-              <span>Entrar</span>
+            @if (error()) {
+              <div class="error-msg">{{ error() }}</div>
             }
-          </button>
-        </form>
+
+            <button type="submit" class="submit-btn" [disabled]="loading() || !authForm.valid">
+              @if (loading()) {
+                <span>Carregando...</span>
+              } @else {
+                <span>{{ isLoginMode() ? 'Entrar' : 'Cadastrar' }}</span>
+              }
+            </button>
+          </form>
+
+          <div class="toggle-mode">
+            <p>
+              {{ isLoginMode() ? 'Ainda não tem conta?' : 'Já possui conta?' }}
+              <button type="button" class="btn-link" (click)="toggleMode()">
+                {{ isLoginMode() ? 'Criar Conta' : 'Fazer Login' }}
+              </button>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   `,
   styles: [`
-    .login-container {
-      min-height: 100vh;
+    :host {
+      display: block;
+      height: 100vh;
+    }
+    .auth-wrapper {
+      display: flex;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    .description-side {
+      flex: 1.2;
+      background: linear-gradient(135deg, #0056b3, #007bff);
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      padding: 4rem;
+      position: relative;
     }
-    .login-card {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px;
-      padding: 2.5rem;
-      width: 100%;
-      max-width: 380px;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    .description-side::before {
+      content: '❄️';
+      position: absolute;
+      font-size: 20rem;
+      opacity: 0.05;
+      right: -5rem;
+      top: -5rem;
+    }
+    .description-content {
+      max-width: 500px;
+      z-index: 1;
     }
     .logo {
-      text-align: center;
-      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
     }
-    .logo-icon { font-size: 3rem; display: block; margin-bottom: 0.5rem; }
-    .logo h1 { color: #fff; margin: 0; font-size: 1.6rem; font-weight: 700; }
-    .logo p { color: rgba(255,255,255,0.5); font-size: 0.85rem; margin: 0.25rem 0 0; }
-    .field { margin-bottom: 1rem; }
-    .field label { display: block; color: rgba(255,255,255,0.7); font-size: 0.85rem; margin-bottom: 0.4rem; }
+    .logo-icon { font-size: 2.5rem; }
+    .logo h1 { font-size: 1.8rem; font-weight: 800; margin: 0; letter-spacing: -0.5px; }
+    .description-content h2 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 1.5rem; }
+    .description-content p { font-size: 1.1rem; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 2rem; }
+    .features { list-style: none; padding: 0; margin: 0; }
+    .features li { margin-bottom: 0.75rem; font-weight: 500; font-size: 1rem; }
+
+    .form-side {
+      flex: 1;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .form-container {
+      width: 100%;
+      max-width: 400px;
+    }
+    .form-header {
+      margin-bottom: 2.5rem;
+    }
+    .form-header h3 { font-size: 1.75rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.5rem; }
+    .form-header p { color: #666; font-size: 0.95rem; }
+
+    .field { margin-bottom: 1.25rem; }
+    .field label { display: block; color: #444; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; }
     .field input {
-      width: 100%; padding: 0.75rem 1rem; border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.08);
-      color: #fff; font-size: 1rem; outline: none; transition: border 0.2s; box-sizing: border-box;
+      width: 100%; padding: 0.85rem 1rem; border-radius: 8px;
+      border: 1px solid #ddd; background: #fdfdfd;
+      color: #333; font-size: 1rem; outline: none; transition: border 0.2s, box-shadow 0.2s; box-sizing: border-box;
     }
-    .field input:focus { border-color: #00c9a7; }
-    .field input::placeholder { color: rgba(255,255,255,0.3); }
-    button {
-      width: 100%; padding: 0.85rem; margin-top: 0.5rem;
-      background: linear-gradient(135deg, #00c9a7, #00b4d8);
-      color: #fff; border: none; border-radius: 10px; font-size: 1rem;
-      font-weight: 600; cursor: pointer; transition: opacity 0.2s;
+    .field input:focus { border-color: #007bff; box-shadow: 0 0 0 4px rgba(0,123,255,0.1); }
+    .field input::placeholder { color: #aaa; }
+
+    .submit-btn {
+      width: 100%; padding: 1rem; margin-top: 1rem;
+      background: #007bff; color: #fff; border: none; border-radius: 8px;
+      font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s;
     }
-    button:disabled { opacity: 0.6; cursor: not-allowed; }
-    button:hover:not(:disabled) { opacity: 0.9; }
+    .submit-btn:disabled { background: #ccc; cursor: not-allowed; }
+    .submit-btn:hover:not(:disabled) { background: #0056b3; }
+
     .error-msg {
-      background: rgba(255,80,80,0.15); border: 1px solid rgba(255,80,80,0.3);
-      color: #ff6b6b; border-radius: 8px; padding: 0.6rem 1rem; font-size: 0.85rem; margin-bottom: 0.75rem;
+      background: #fff5f5; border: 1px solid #feb2b2;
+      color: #c53030; border-radius: 8px; padding: 0.75rem 1rem; font-size: 0.85rem; margin-bottom: 1rem;
+    }
+
+    .toggle-mode { text-align: center; margin-top: 2rem; }
+    .toggle-mode p { color: #666; font-size: 0.9rem; }
+    .btn-link {
+      background: none; border: none; color: #007bff; font-size: 0.9rem;
+      font-weight: 600; cursor: pointer; padding: 0; margin-left: 0.25rem;
+    }
+    .btn-link:hover { text-decoration: underline; }
+
+    @media (max-width: 900px) {
+      .description-side { display: none; }
     }
   `],
 })
@@ -112,16 +193,26 @@ export class LoginComponent {
   password = '';
   loading = signal(false);
   error = signal('');
+  isLoginMode = signal(true);
 
   constructor(private authService: AuthService) {}
 
-  async onLogin() {
+  toggleMode() {
+    this.isLoginMode.update(v => !v);
+    this.error.set('');
+  }
+
+  async onSubmit() {
     this.loading.set(true);
     this.error.set('');
     try {
-      await this.authService.login(this.email, this.password);
+      if (this.isLoginMode()) {
+        await this.authService.login(this.email, this.password);
+      } else {
+        await this.authService.signUp(this.email, this.password);
+      }
     } catch (err: any) {
-      this.error.set(err?.message || 'Erro ao fazer login. Verifique suas credenciais.');
+      this.error.set(err?.message || 'Erro ao processar solicitação. Verifique os dados.');
     } finally {
       this.loading.set(false);
     }
