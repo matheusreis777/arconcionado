@@ -27,9 +27,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 4rem;
+  padding: 3rem;
   color: #fff;
   overflow: hidden;
+
+  @media (max-width: 1366px) { padding: 2rem; flex: 0.85; }
+  @media (max-width: 900px)  { display: none; }
 }
 
 @keyframes meshGradient {
@@ -385,7 +388,20 @@
 }
 
 // ─── Responsive ───────────────────────────────────────────────────────────────
-@media (max-width: 1024px) {
+// 14" laptops
+@media (max-width: 1366px) {
+  .form-panel   { padding: 1.5rem 2rem; }
+  .form-header h2 { font-size: 1.5rem; }
+  .form-header p  { font-size: 0.875rem; }
+  .visual-header h1 { font-size: 1.5rem; }
+  .visual-header p  { font-size: 0.875rem; margin-bottom: 2rem; }
+  .company-form { gap: 1rem; }
+  .input-field input { padding: 0.75rem 1rem; font-size: 0.875rem; }
+  .prime-submit { padding: 0.85rem; }
+}
+
+// Mobile
+@media (max-width: 900px) {
   .visual-panel { display: none; }
   .form-panel { padding: 2rem 1.5rem; }
 }
